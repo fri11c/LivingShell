@@ -78,7 +78,7 @@ CONFIG get_config(void) {
                 char* token = strtok(temp, "{}");
 
                 int n = 0;
-                for (int j = 1; token != NULL; j++) {
+                while (token != NULL) {
                     n += strlen(var_of(token));
                     token = strtok(NULL, "{}");
                 }
@@ -88,14 +88,19 @@ CONFIG get_config(void) {
                 char *config_inc_vars = malloc(n +1);
                 strcpy(config_inc_vars, "");
 
-                for (int j = 1; token2 != NULL; j++) {
+                
+                while (token2 != NULL) {
                     sprintf(config_inc_vars + strlen(config_inc_vars), "%s", var_of(token2));
                     token2 = strtok(NULL, "{}");
                 }
 
                 strcpy(*mappings[i].target_ptr, config_inc_vars);
-                //free(result);
+                free(config_inc_vars);
+
             }
+        }
+        else {
+            error(WARNING, "Some of the config types do not match. Standart will be used", false);
         }
     }
     

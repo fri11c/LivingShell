@@ -17,7 +17,7 @@ char *remove_quotes(char *token, int len) {
 
         while (token_buffer[i] == '\'' || token_buffer[i] == '\"') i++;
 
-        while (token_buffer[j++] = token_buffer[i++]);
+        while ((token_buffer[j++] = token_buffer[i++]));
 
         token_buffer[len -2] = '\0';
     }
@@ -104,7 +104,7 @@ int run_command(char **args) {
                id = i;
             }
         }
-       
+    
         switch(id) {
             case QUIT:  
                 return -1;
@@ -116,7 +116,7 @@ int run_command(char **args) {
             case CD:
                 if(chdir(args[2]) < 0) {
                    
-                    
+                    return 0;
                     error(ERROR, args[2], false);
                     
                 }
@@ -140,4 +140,5 @@ int run_command(char **args) {
             error(ERROR, args[0], true);
         }
     }
+    return 0;
 }
